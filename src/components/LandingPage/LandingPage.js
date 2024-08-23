@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './LandingPage.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import Above from '../../pages/About';
 
 const LandingPage = () => {
     const navigate = useNavigate();
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     const handleReadMore = () => {
         navigate('/home');
@@ -12,6 +18,25 @@ const LandingPage = () => {
     const handleWriteBlog = () => {
         navigate('/write-blog');
     };
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+            try {
+                const response = await axios.get('https://blog-backend-fd7d.onrender.com/api/posts');
+                const fetchedPosts = response.data;
+                const randomPosts = fetchedPosts.sort(() => 0.5 - Math.random()).slice(0, 2);
+                setPosts(randomPosts);
+            } catch (err) {
+                setError('Failed to fetch posts');
+                console.error(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchPosts();
+    }, []);
+
 
     return (
         <div className="landing-page">
@@ -23,32 +48,31 @@ const LandingPage = () => {
                     <button className="cta-button write-blog-button" onClick={handleWriteBlog}>Write a Blog</button>
                 </div>
             </section>
+            <Above />
 
-            {/* About Section */}
-            <section className="about-section">
-                <h2>About Me</h2>
-                <p>Hello! I'm a passionate writer sharing my thoughts and experiences on various topics.</p>
-                <img src="your-image-url.jpg" alt="About Me" className="about-image" />
-            </section>
-
-            {/* Featured Posts Section */}
             <section className="featured-posts">
                 <h2>Featured Articles</h2>
-                <div className="posts-grid">
-                    {/* Post 1 */}
-                    <div className="post">
-                        <img src="post1-image-url.jpg" alt="Post 1" className="post-image" />
-                        <h3 className="post-title">Post Title 1</h3>
-                        <p className="post-excerpt">A brief description of the post...</p>
+                {loading ? (
+                    <p>Loading...</p>
+                ) : error ? (
+                    <p>{error}</p>
+                ) : (
+                    <div className="posts-grid">
+                        {posts.map((post) => (
+                            <Link to={`/post/${post._id}`} key={post._id} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                <div className="post">
+                                    <img src={post.image} alt={post.title} className="post-image" />
+                                    <div className="post-content">
+                                        <h3>{post.title}</h3>
+                                        <p className="post-excerpt">
+                                            {post.excerpt.length > 100 ? post.excerpt.substring(0, 100) + '...' : post.excerpt}
+                                        </p>
+                                    </div>
+                                </div>
+                            </Link>
+                        ))}
                     </div>
-                    {/* Post 2 */}
-                    <div className="post">
-                        <img src="post2-image-url.jpg" alt="Post 2" className="post-image" />
-                        <h3 className="post-title">Post Title 2</h3>
-                        <p className="post-excerpt">A brief description of the post...</p>
-                    </div>
-                    {/* Add more posts as needed */}
-                </div>
+                )}
             </section>
         </div>
     );

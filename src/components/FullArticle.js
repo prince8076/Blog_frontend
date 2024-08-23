@@ -60,9 +60,9 @@ const FullArticle = () => {
                 }
 
                 h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    color: #ff0000; /* bright red */
+                    font-size: 2.5rem;
+                    margin-bottom: 1rem;
+                    color: #ff0000; 
 }
 
                 p {
