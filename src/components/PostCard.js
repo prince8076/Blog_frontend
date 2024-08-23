@@ -45,7 +45,7 @@ const FeaturedPostsWrapper = styled.div`
 const PostsList = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5rem; /* Increased gap for better spacing */
+  gap: 4.5rem; 
 `;
 
 const PostCard = styled.div`
@@ -71,7 +71,7 @@ const PostImage = styled.img`
 `;
 
 const PostContent = styled.div`
-  padding: 1rem;
+  padding: 1.2rem;
 `;
 
 const PostTitle = styled.h3`
@@ -86,7 +86,7 @@ const PostExcerpt = styled.p`
   font-size: ${({ theme }) => theme.font.size.small};
   margin: 0;
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* Limits to 3 lines */
+  -webkit-line-clamp: 3; 
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
