@@ -18,9 +18,7 @@ const FeaturedPosts = ({ posts = [] }) => {
                 <img src={post.image} alt={post.title} className="post-image" />
                 <div className="post-content">
                   <h3>{post.title}</h3>
-                  <p>{post.excerpt}</p>
-
-
+                  <p className="post-excerpt">{post.excerpt}</p>
                 </div>
               </Link>
             </div>
@@ -50,7 +48,7 @@ const FeaturedPosts = ({ posts = [] }) => {
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
           overflow: hidden;
           width: 300px;
-          text-align: center; /* Center text within the post card */
+          text-align: center;
         }
 
         .post-image {
@@ -66,19 +64,23 @@ const FeaturedPosts = ({ posts = [] }) => {
         .post-card h3 {
           color: #e0e0e0;
           font-size: 1.2rem;
-          margin: 0;
+          margin: 1rem;
         }
 
-        .post-card p {
+        .post-excerpt {
           color: #bbb;
           font-size: 1rem;
-          margin: 0; /* Remove default margin */
+          margin: 0;
+          display: -webkit-box;
+          -webkit-line-clamp: 3; /* Limits to 3 lines */
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       `}</style>
     </div>
   );
 };
-
 
 FeaturedPosts.propTypes = {
   posts: PropTypes.array.isRequired
