@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 const FeaturedPosts = ({ posts = [] }) => {
   if (!Array.isArray(posts)) {
@@ -8,82 +9,87 @@ const FeaturedPosts = ({ posts = [] }) => {
   }
 
   return (
-    <div className="featured-posts">
+    <FeaturedPostsWrapper>
       <h2>Featured Posts</h2>
-      <div className="posts-list">
+      <PostsList>
         {posts.length > 0 ? (
           posts.map(post => (
-            <div key={post._id} className="post-card">
+            <PostCard key={post._id}>
               <Link to={`/post/${post._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                <img src={post.image} alt={post.title} className="post-image" />
-                <div className="post-content">
-                  <h3>{post.title}</h3>
-                  <p className="post-excerpt">{post.excerpt}</p>
-                </div>
+                <PostImage src={post.image} alt={post.title} />
+                <PostContent>
+                  <PostTitle>{post.title}</PostTitle>
+                  <PostExcerpt>{post.excerpt}</PostExcerpt>
+                </PostContent>
               </Link>
-            </div>
+            </PostCard>
           ))
         ) : (
           <p>No posts to display.</p>
         )}
-      </div>
-
-      <style jsx>{`
-        .featured-posts {
-          background-color: #1a1a1a;
-          color: #e0e0e0;
-          padding: 2rem;
-        }
-
-        .posts-list {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 1rem;
-        }
-
-        .post-card {
-          background-color: #2a2a2a;
-          border: 1px solid #333;
-          border-radius: 8px;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-          overflow: hidden;
-          width: 300px;
-          text-align: center;
-        }
-
-        .post-image {
-          height: 200px;
-          object-fit: cover;
-          width: 100%;
-        }
-
-        .post-content {
-          padding: 1rem;
-        }
-
-        .post-card h3 {
-          color: #e0e0e0;
-          font-size: 1.2rem;
-          margin: 1rem;
-        }
-
-        .post-excerpt {
-          color: #bbb;
-          font-size: 1rem;
-          margin: 0;
-          display: -webkit-box;
-          -webkit-line-clamp: 3; /* Limits to 3 lines */
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-      `}</style>
-    </div>
+      </PostsList>
+    </FeaturedPostsWrapper>
   );
 };
 
 FeaturedPosts.propTypes = {
   posts: PropTypes.array.isRequired
 };
+
+const FeaturedPostsWrapper = styled.div`
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.text};
+  padding: 2rem;
+`;
+
+const PostsList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem; /* Increased gap for better spacing */
+`;
+
+const PostCard = styled.div`
+  background-color: ${({ theme }) => theme.colors.secondary};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  width: 300px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+  }
+`;
+
+const PostImage = styled.img`
+  height: 200px;
+  object-fit: cover;
+  width: 100%;
+`;
+
+const PostContent = styled.div`
+  padding: 1rem;
+`;
+
+const PostTitle = styled.h3`
+  color: ${({ theme }) => theme.colors.text};
+  font-size: ${({ theme }) => theme.font.size.medium};
+  font-weight: ${({ theme }) => theme.font.weight.bold};
+  margin: 0;
+`;
+
+const PostExcerpt = styled.p`
+  color: ${({ theme }) => theme.colors.mutedText};
+  font-size: ${({ theme }) => theme.font.size.small};
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limits to 3 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
 
 export default FeaturedPosts;
