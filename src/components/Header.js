@@ -5,6 +5,7 @@ import LogoImage from '../aseets/images/new_logo.png';
 import Login from './Login';
 import Signup from './Signup';
 
+
 const HeaderWrapper = styled.header`
   background: ${({ theme }) => theme.colors.primary};
   padding: 1rem 2rem;

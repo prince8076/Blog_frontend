@@ -12,7 +12,7 @@ const theme = {
         mutedText: "#bbb",
         background: "#1a1a1a",
         border: "#333",
-        accent: "#f39c12", // Added accent color
+        accent: "#f39c12",
     },
     font: {
         family: "Poppins",
@@ -30,7 +30,7 @@ const theme = {
     },
 };
 
-function Login({ onClose }) {
+function Login({ onClose, toggleForm }) {
     return (
         <MainContainer>
             <FirstContainer>
@@ -50,7 +50,7 @@ function Login({ onClose }) {
                         </TermsText>
                         <SignUpText>
                             New here?{" "}
-                            <SignUpLink>Sign up</SignUpLink>
+                            <SignUpLink onClick={toggleForm}>Sign up</SignUpLink>
                         </SignUpText>
                     </ThirdContainer>
                 </SecondContainer>
@@ -64,7 +64,6 @@ const flexCenter = css`
   justify-content: center;
   align-items: center;
 `;
-
 const MainContainer = styled.div`
   ${flexCenter}
   position: fixed; /* Fixed positioning for popup */
@@ -72,8 +71,8 @@ const MainContainer = styled.div`
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
-  z-index: 1000; /* Ensure it's above other content */
+  background-color: rgba(0, 0, 0, 0.7); 
+  z-index: 1000; 
 `;
 
 const FirstContainer = styled.div`
@@ -98,7 +97,7 @@ const ThirdContainer = styled.div`
   max-width: 350px;
   ${flexCenter}
   flex-direction: column;
-  gap: 10px; /* Adjust gap to control space between elements */
+  gap: 10px;
   position: relative;
 `;
 
@@ -111,7 +110,7 @@ const commonTextStyle = css`
 const Logo = styled.img`
   width: 150px;
   height: auto;
-  margin-bottom: 10px; /* Add bottom margin if needed for spacing */
+  margin-bottom: 10px; 
 `;
 
 const Title = styled.h2`
@@ -129,16 +128,16 @@ const LoginForm = styled.div`
 `;
 
 const EmailInput = styled.input`
-  width: 100%; /* Ensure full width of the container */
-  max-width: 350px; /* Set a maximum width to control the size */
-  padding: 15px; /* Increase padding for a larger input field */
+  width: 100%; 
+  max-width: 350px; 
+  padding: 15px; 
   border-radius: 5px;
   border: 1px solid ${theme.colors.border};
   background-color: ${theme.colors.primary};
   color: ${theme.colors.text};
-  font-size: ${theme.font.size.medium}; /* Increase font size for better readability */
+  font-size: ${theme.font.size.medium};
   outline: none;
-  box-sizing: border-box; /* Include padding and border in width calculation */
+  box-sizing: border-box; 
   
   &::placeholder {
     color: ${theme.colors.mutedText};
@@ -150,16 +149,16 @@ const EmailInput = styled.input`
 `;
 
 const PasswordInput = styled.input`
-  width: 100%; /* Ensure full width of the container */
-  max-width: 350px; /* Set a maximum width to control the size */
-  padding: 15px; /* Increase padding for a larger input field */
+  width: 100%; 
+  max-width: 350px; 
+  padding: 15px;
   border-radius: 5px;
   border: 1px solid ${theme.colors.border};
   background-color: ${theme.colors.primary};
   color: ${theme.colors.text};
-  font-size: ${theme.font.size.medium}; /* Increase font size for better readability */
+  font-size: ${theme.font.size.medium}; 
   outline: none;
-  box-sizing: border-box; /* Include padding and border in width calculation */
+  box-sizing: border-box; 
   
   &::placeholder {
     color: ${theme.colors.mutedText};
