@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import LogoImage from '../aseets/images/new_logo.png';
+import axios from 'axios';
 
 const theme = {
     colors: {
@@ -31,6 +32,36 @@ const theme = {
 };
 
 function Signup({ onClose, toggleForm }) {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (password !== confirmPassword) {
+            setError('Passwords do not match.');
+            return;
+        }
+        setLoading(true);
+
+        try {
+            const response = await axios.post('http://localhost:5000/api/signup', {
+                email,
+                password
+            });
+            console.log('Signup successful:', response.data);
+            // Handle successful signup (e.g., redirect, show message)
+            onClose(); // Close the signup form
+        } catch (error) {
+            console.error('Signup error:', error);
+            setError('Failed to sign up. Please try again.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <MainContainer>
             <FirstContainer>
@@ -39,12 +70,33 @@ function Signup({ onClose, toggleForm }) {
                     <ThirdContainer>
                         <Logo src={LogoImage} alt="InkWave" />
                         <Title>InkWave Blog</Title>
-                        <SignupForm>
-                            <EmailInput type="email" placeholder="Enter your email" />
-                            <PasswordInput type="password" placeholder="Enter your password" />
-                            <ConfirmPasswordInput type="password" placeholder="Confirm your password" />
-                            <StyledButton>Sign Up</StyledButton>
+                        <SignupForm onSubmit={handleSubmit}>
+                            <EmailInput
+                                type="email"
+                                placeholder="Enter your email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
+                            <PasswordInput
+                                type="password"
+                                placeholder="Enter your password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
+                            <ConfirmPasswordInput
+                                type="password"
+                                placeholder="Confirm your password"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                required
+                            />
+                            <StyledButton type="submit" disabled={loading}>
+                                {loading ? 'Signing Up...' : 'Sign Up'}
+                            </StyledButton>
                         </SignupForm>
+                        {error && <ErrorText>{error}</ErrorText>}
                         <TermsText>
                             By continuing, you agree to our{" "}
                             <StyledLink>Terms & Conditions</StyledLink>
@@ -122,7 +174,7 @@ const Title = styled.h2`
   margin: 0;
 `;
 
-const SignupForm = styled.div`
+const SignupForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -208,6 +260,11 @@ const StyledButton = styled.button`
     background-color: ${theme.colors.primary};
     color: ${theme.colors.text};
   }
+
+  &:disabled {
+    background-color: ${theme.colors.mutedText};
+    cursor: not-allowed;
+  }
 `;
 
 const TermsText = styled.p`
@@ -268,6 +325,12 @@ const CloseIcon = styled(FontAwesomeIcon)`
   top: 10px;
   right: 10px;
   z-index: 1;
+`;
+
+const ErrorText = styled.p`
+  ${commonTextStyle}
+  font-size: ${theme.font.size.small};
+  color: #ff0000;
 `;
 
 export default Signup;

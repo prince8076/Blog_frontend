@@ -1,8 +1,12 @@
-import React from "react";
+// src/components/Login.js
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import LogoImage from '../aseets/images/new_logo.png';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const theme = {
     colors: {
@@ -31,6 +35,35 @@ const theme = {
 };
 
 function Login({ onClose, toggleForm }) {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+    const { login } = useAuth(); // Use authentication context
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+
+        try {
+            const response = await axios.post('http://localhost:5000/api/login', {
+                email,
+                password
+            });
+            console.log('Login successful:', response.data);
+            localStorage.setItem('token', response.data.token); // Example of storing a token
+            login(); // Set authentication state
+            navigate('/write-blog'); // Redirect to the blog writing page
+            onClose(); // Close the login form
+        } catch (error) {
+            console.error('Login error:', error);
+            setError('Failed to log in. Please check your email and password and try again.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <MainContainer>
             <FirstContainer>
@@ -39,11 +72,26 @@ function Login({ onClose, toggleForm }) {
                     <ThirdContainer>
                         <Logo src={LogoImage} alt="InkWave" />
                         <Title>InkWave Blog</Title>
-                        <LoginForm>
-                            <EmailInput type="email" placeholder="Enter your email" />
-                            <PasswordInput type="password" placeholder="Enter your password" />
-                            <StyledButton>Log In</StyledButton>
+                        <LoginForm onSubmit={handleSubmit}>
+                            <EmailInput
+                                type="email"
+                                placeholder="Enter your email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
+                            <PasswordInput
+                                type="password"
+                                placeholder="Enter your password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
+                            <StyledButton type="submit" disabled={loading}>
+                                {loading ? 'Logging In...' : 'Log In'}
+                            </StyledButton>
                         </LoginForm>
+                        {error && <ErrorText>{error}</ErrorText>}
                         <TermsText>
                             By continuing, you agree to our{" "}
                             <StyledLink>Terms & Conditions</StyledLink>
@@ -64,6 +112,7 @@ const flexCenter = css`
   justify-content: center;
   align-items: center;
 `;
+
 const MainContainer = styled.div`
   ${flexCenter}
   position: fixed; /* Fixed positioning for popup */
@@ -120,7 +169,7 @@ const Title = styled.h2`
   margin: 0; /* Remove margin */
 `;
 
-const LoginForm = styled.div`
+const LoginForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -185,6 +234,11 @@ const StyledButton = styled.button`
     background-color: ${theme.colors.primary};
     color: ${theme.colors.text};
   }
+
+  &:disabled {
+    background-color: ${theme.colors.mutedText};
+    cursor: not-allowed;
+  }
 `;
 
 const TermsText = styled.p`
@@ -245,6 +299,12 @@ const CloseIcon = styled(FontAwesomeIcon)`
   top: 10px;
   right: 10px;
   z-index: 1;
+`;
+
+const ErrorText = styled.p`
+  ${commonTextStyle}
+  color: ${theme.colors.accent};
+  font-size: ${theme.font.size.small};
 `;
 
 export default Login;
