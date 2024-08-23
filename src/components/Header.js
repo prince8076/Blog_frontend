@@ -4,6 +4,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import LogoImage from '../aseets/images/new_logo.png';
 import Login from './Login';
 import Signup from './Signup';
+
 const HeaderWrapper = styled.header`
   background: ${({ theme }) => theme.colors.primary};
   padding: 1rem 2rem;
@@ -29,7 +30,7 @@ const Nav = styled.nav`
   align-items: center;
 
   a {
-    margin-left: 2rem;
+    margin-left: 1rem;
     color: ${({ theme }) => theme.colors.text};
     font-weight: bold;
     text-decoration: none;
@@ -41,7 +42,7 @@ const Nav = styled.nav`
   }
 
   button {
-    margin-left: 2rem;
+    margin-left: 1rem;
     background: none;
   }
 `;
@@ -49,7 +50,7 @@ const Nav = styled.nav`
 const SearchInput = styled.input`
   padding: 0.5rem;
   font-size: 1rem;
-  margin-left: 2rem;
+  margin-left: 1rem;
   border: 1px solid ${({ theme }) => theme.colors.mutedText};
   border-radius: 4px;
   background: ${({ theme }) => theme.colors.secondary};
@@ -123,7 +124,14 @@ const Header = () => {
         <Nav>
           <Link to="/">Home</Link>
           <Link to="/about">About</Link>
-          <Button onClick={toggleSignup}>Sign Up</Button>
+          {location.pathname === '/' ? (
+            <Button onClick={toggleSignup}>Sign Up</Button>
+          ) : (
+            <>
+              <Button onClick={toggleLogin}>Log In</Button>
+              <Button onClick={toggleSignup}>Sign Up</Button>
+            </>
+          )}
         </Nav>
         <SearchInput
           type="text"
