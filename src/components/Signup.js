@@ -47,12 +47,11 @@ function Signup({ onClose, toggleForm }) {
         setLoading(true);
 
         try {
-            const response = await axios.post('http://localhost:5000/api/signup', {
+            const response = await axios.post('https://blog-backend-fd7d.onrender.com/api/signup', {
                 email,
                 password
             });
             console.log('Signup successful:', response.data);
-            // Handle successful signup (e.g., redirect, show message)
             onClose();
         } catch (error) {
             console.error('Signup error:', error);

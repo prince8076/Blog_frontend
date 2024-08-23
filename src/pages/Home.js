@@ -19,7 +19,6 @@ const HomePage = () => {
                 setLoading(false);
             }
         };
-
         fetchPosts();
     }, []);
 

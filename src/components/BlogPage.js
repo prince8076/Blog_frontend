@@ -6,7 +6,7 @@ const BlogPage = () => {
     const [query, setQuery] = useState('');
     const [filteredPosts, setFilteredPosts] = useState([]);
 
-    // Fetch posts from the API
+
     useEffect(() => {
         const fetchPosts = async () => {
             try {

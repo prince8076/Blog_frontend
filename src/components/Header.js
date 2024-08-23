@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import LogoImage from '../aseets/images/new_logo.png'; // Fixed typo from 'aseets' to 'assets'
+import LogoImage from '../aseets/images/new_logo.png';
 import Login from './Login';
 import Signup from './Signup';
 import { useAuth } from '../context/AuthContext';
@@ -89,7 +89,7 @@ const Header = () => {
   const [showSignup, setShowSignup] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const { isAuthenticated, logout } = useAuth(); // Get auth state and logout function
+  const { isAuthenticated, logout } = useAuth();
 
   const handleInputChange = (e) => {
     setQuery(e.target.value);
@@ -119,7 +119,7 @@ const Header = () => {
 
   const handleLogout = () => {
     logout();
-    navigate('/'); // Redirect to home or login page after logout
+    navigate('/');
   };
 
   return (

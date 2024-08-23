@@ -40,21 +40,21 @@ function Login({ onClose, toggleForm }) {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    const { login } = useAuth(); // Use authentication context
+    const { login } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
 
         try {
-            const response = await axios.post('http://localhost:5000/api/login', {
+            const response = await axios.post('https://blog-backend-fd7d.onrender.com/api/login', {
                 email,
                 password
             });
             console.log('Login successful:', response.data);
-            localStorage.setItem('token', response.data.token); // Example of storing a token
+            localStorage.setItem('token', response.data.token);
             login(); // Set authentication state
-            navigate('/write-blog'); // Redirect to the blog writing page
+            navigate('/');
             onClose(); // Close the login form
         } catch (error) {
             console.error('Login error:', error);
