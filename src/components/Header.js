@@ -1,27 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import LogoImage from '../aseets/images/new_logo.png';
 
 const HeaderWrapper = styled.header`
   background: ${({ theme }) => theme.colors.primary};
   padding: 1rem 2rem;
   display: flex;
+  align-items: center; /* Center items vertically */
   justify-content: space-between;
+`;
+
+const LogoLink = styled(Link)`
+  display: flex;
   align-items: center;
 `;
 
-const Logo = styled.h1`
-  font-size: 1.5rem;
-  color: ${({ theme }) => theme.colors.text};
+const Logo = styled.img`
+  height: 80px; /* Adjust height as needed */
+  width: auto;  /* Keeps the aspect ratio */
 `;
 
 const Nav = styled.nav`
+  display: flex;
+  align-items: center; 
+  
   a {
-    margin-left: 1.5rem;
+    margin-left: 2rem; 
     color: ${({ theme }) => theme.colors.text};
     font-weight: bold;
     text-decoration: none;
-
+    
     &:hover {
       color: ${({ theme }) => theme.colors.accent};
     }
@@ -44,6 +53,7 @@ const SearchInput = styled.input`
 const Header = () => {
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleInputChange = (e) => {
     setQuery(e.target.value);
@@ -55,9 +65,18 @@ const Header = () => {
     }
   };
 
+  // Reset search input when navigating to Home or About
+  useEffect(() => {
+    if (location.pathname === '/' || location.pathname === '/about') {
+      setQuery('');
+    }
+  }, [location]);
+
   return (
     <HeaderWrapper>
-      <Logo>My Blog</Logo>
+      <LogoLink to="/">
+        <Logo src={LogoImage} alt="Logo" />
+      </LogoLink>
       <Nav>
         <Link to="/">Home</Link>
         <Link to="/about">About</Link>
