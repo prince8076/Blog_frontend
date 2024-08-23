@@ -14,6 +14,7 @@ import Home from './pages/Home';
 import WriteBlog from './pages/WriteBlog';
 import FullArticle from './components/FullArticle';
 import AdminPanel from './components/AdminPanel';
+import SearchResults from './components/SearchResults';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route path="/write-blog" element={<WriteBlog />} />
             <Route path="/post/:id" element={<FullArticle />} />
             <Route path="/admin" element={<AdminPanel />} />
+            <Route path="/search" element={<SearchResults />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
