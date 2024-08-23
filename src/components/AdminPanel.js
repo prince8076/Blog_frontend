@@ -9,7 +9,7 @@ const AdminPanel = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/posts');
+                const response = await axios.get('https://blog-backend-fd7d.onrender.com/api/posts');
                 setPosts(response.data);
             } catch (error) {
                 console.error('Error fetching posts:', error);
@@ -23,7 +23,7 @@ const AdminPanel = () => {
     // Handle post deletion
     const handleDelete = async (postId) => {
         try {
-            await axios.delete(`http://localhost:5000/api/posts/${postId}`);
+            await axios.delete(`https://blog-backend-fd7d.onrender.com/api/posts/${postId}`);
             setPosts(posts.filter(post => post._id !== postId));
         } catch (error) {
             console.error('Error deleting post:', error);

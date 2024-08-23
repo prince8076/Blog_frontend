@@ -16,7 +16,7 @@ const WriteBlog = () => {
         };
 
         try {
-            const response = await axios.post('http://localhost:5000/api/posts', newPost);
+            const response = await axios.post('https://blog-backend-fd7d.onrender.com/api/posts', newPost);
             console.log('Response:', response);
             alert('Blog post created successfully!');
             setTitle('');

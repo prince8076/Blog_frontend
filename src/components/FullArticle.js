@@ -10,7 +10,7 @@ const FullArticle = () => {
     useEffect(() => {
         const fetchPost = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/posts/${id}`);
+                const response = await fetch(`https://blog-backend-fd7d.onrender.com/api/posts/${id}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch post');
                 }
