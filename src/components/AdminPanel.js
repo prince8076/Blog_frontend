@@ -39,9 +39,9 @@ const AdminPanel = () => {
     const handleUpdate = async (postId) => {
         try {
             const updatedPost = {
-                title: updatedTitle,
-                excerpt: updatedExcerpt,
-                image: updatedImage
+                ...(updatedTitle && { title: updatedTitle }),
+                ...(updatedExcerpt && { excerpt: updatedExcerpt }),
+                ...(updatedImage && { image: updatedImage })
             };
             await axios.put(`https://blog-backend-fd7d.onrender.com/api/posts/${postId}`, updatedPost);
             setPosts(posts.map(post => (post._id === postId ? { ...post, ...updatedPost } : post)));
@@ -53,6 +53,14 @@ const AdminPanel = () => {
             console.error('Error updating post:', error);
             setError(`Failed to update post. Server responded with: ${error.response?.data.message || error.message}`);
         }
+    };
+
+    // Handle cancel editing
+    const handleCancel = () => {
+        setEditingPost(null);
+        setUpdatedTitle('');
+        setUpdatedExcerpt('');
+        setUpdatedImage('');
     };
 
     return (
@@ -98,9 +106,14 @@ const AdminPanel = () => {
                                         onChange={(e) => setUpdatedImage(e.target.value)}
                                         placeholder="Image URL"
                                     />
-                                    <button onClick={() => handleUpdate(post._id)} className="update-button">
-                                        Update
-                                    </button>
+                                    <div className="form-buttons">
+                                        <button onClick={() => handleUpdate(post._id)} className="update-button">
+                                            Update
+                                        </button>
+                                        <button onClick={handleCancel} className="cancel-button">
+                                            Cancel
+                                        </button>
+                                    </div>
                                 </div>
                             )}
                         </li>
@@ -154,10 +167,10 @@ const AdminPanel = () => {
                 }
 
                 .post-image {
-                    width: 100px;
-                    height: 100px;
+                    width: 120px;
+                    height: 120px;
                     object-fit: cover;
-                    border-radius: 4px;
+                    border-radius: 8px;
                 }
 
                 .post-details {
@@ -165,13 +178,13 @@ const AdminPanel = () => {
                 }
 
                 .post-details h3 {
-                    font-size: 1.2rem;
+                    font-size: 1.3rem;
                     margin: 0;
                     color: #e0e0e0;
                 }
 
                 .post-details p {
-                    font-size: 0.9rem;
+                    font-size: 1rem;
                     color: #b0b0b0;
                     margin: 0.5rem 0 0;
                 }
@@ -181,9 +194,7 @@ const AdminPanel = () => {
                     gap: 0.5rem;
                 }
 
-                .edit-button {
-                    background-color: #00aaff;
-                    color: #ffffff;
+                .edit-button, .delete-button {
                     border: none;
                     border-radius: 5px;
                     padding: 0.5rem 1rem;
@@ -192,8 +203,23 @@ const AdminPanel = () => {
                     transition: background-color 0.3s ease, transform 0.2s ease;
                 }
 
+                .edit-button {
+                    background-color: #00aaff;
+                    color: #ffffff;
+                }
+
                 .edit-button:hover {
                     background-color: #007bb5;
+                    transform: scale(1.05);
+                }
+
+                .delete-button {
+                    background-color: #ff4d4d;
+                    color: #ffffff;
+                }
+
+                .delete-button:hover {
+                    background-color: #cc0000;
                     transform: scale(1.05);
                 }
 
@@ -211,8 +237,7 @@ const AdminPanel = () => {
                     font-size: 1.2rem;
                 }
 
-                .update-form input,
-                .update-form textarea {
+                .update-form input, .update-form textarea {
                     width: 100%;
                     padding: 0.9rem;
                     margin-bottom: 1rem;
@@ -220,6 +245,7 @@ const AdminPanel = () => {
                     border: 1px solid #444;
                     background-color: #1e1e1e;
                     color: #e0e0e0;
+                    box-sizing: border-box;
                 }
 
                 .update-form textarea {
@@ -243,8 +269,8 @@ const AdminPanel = () => {
                     transform: scale(1.05);
                 }
 
-                .delete-button {
-                    background-color: #ff4d4d;
+                .cancel-button {
+                    background-color: #555;
                     color: #ffffff;
                     border: none;
                     border-radius: 5px;
@@ -252,11 +278,17 @@ const AdminPanel = () => {
                     cursor: pointer;
                     font-size: 0.9rem;
                     transition: background-color 0.3s ease, transform 0.2s ease;
+                    margin-left: 0.5rem;
                 }
 
-                .delete-button:hover {
-                    background-color: #cc0000;
+                .cancel-button:hover {
+                    background-color: #333;
                     transform: scale(1.05);
+                }
+
+                .form-buttons {
+                    display: flex;
+                    gap: 0.5rem;
                 }
 
                 .error-message {
