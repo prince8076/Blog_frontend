@@ -3,20 +3,31 @@ import './LandingPage.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import Above from '../../pages/About';
+import { useAuth } from '../../context/AuthContext';
+import Login from '../Login';
 
 const LandingPage = () => {
     const navigate = useNavigate();
+    const { isAuthenticated } = useAuth();
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [showLogin, setShowLogin] = useState(false);
 
     const handleReadMore = () => {
-        navigate('/home');
+        if (isAuthenticated) {
+            navigate('/home');
+        } else {
+            setShowLogin(true);
+        }
     };
 
     const handleWriteBlog = () => {
-        navigate('/write-blog');
+        if (isAuthenticated) {
+            navigate('/write-blog');
+        } else {
+            setShowLogin(true);
+        }
     };
 
     useEffect(() => {
@@ -37,7 +48,6 @@ const LandingPage = () => {
         fetchPosts();
     }, []);
 
-
     return (
         <div className="landing-page">
             <section className="hero-section">
@@ -48,7 +58,6 @@ const LandingPage = () => {
                     <button className="cta-button write-blog-button" onClick={handleWriteBlog}>Write a Blog</button>
                 </div>
             </section>
-            <Above />
 
             <section className="featured-posts">
                 <h2>Featured Articles</h2>
@@ -74,6 +83,8 @@ const LandingPage = () => {
                     </div>
                 )}
             </section>
+
+            {showLogin && <Login onClose={() => setShowLogin(false)} />}
         </div>
     );
 };

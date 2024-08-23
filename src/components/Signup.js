@@ -53,7 +53,7 @@ function Signup({ onClose, toggleForm }) {
             });
             console.log('Signup successful:', response.data);
             // Handle successful signup (e.g., redirect, show message)
-            onClose(); // Close the signup form
+            onClose();
         } catch (error) {
             console.error('Signup error:', error);
             setError('Failed to sign up. Please try again.');

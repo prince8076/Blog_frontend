@@ -9,7 +9,6 @@ const AdminPanel = () => {
     const [updatedExcerpt, setUpdatedExcerpt] = useState('');
     const [updatedImage, setUpdatedImage] = useState('');
 
-    // Fetch posts when the component mounts
     useEffect(() => {
         const fetchPosts = async () => {
             try {
