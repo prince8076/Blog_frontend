@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const WriteBlog = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [image, setImage] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -18,10 +20,10 @@ const WriteBlog = () => {
         try {
             const response = await axios.post('https://blog-backend-fd7d.onrender.com/api/posts', newPost);
             console.log('Response:', response);
-            alert('Blog post created successfully!');
             setTitle('');
             setContent('');
             setImage('');
+            navigate("/")
         } catch (error) {
             console.error('Error creating blog post:', error);
             alert('Failed to create blog post. Please try again.');
