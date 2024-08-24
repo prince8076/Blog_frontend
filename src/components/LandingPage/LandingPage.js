@@ -12,22 +12,24 @@ const LandingPage = () => {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [showLogin, setShowLogin] = useState(false);
+    // const [showLogin, setShowLogin] = useState(false);
 
     const handleReadMore = () => {
-        if (isAuthenticated) {
-            navigate('/home');
-        } else {
-            setShowLogin(true);
-        }
+        // if (isAuthenticated) {
+        //     navigate('/home');
+        // } else {
+        //     setShowLogin(true);
+        // }
+        navigate('/home');
     };
 
     const handleWriteBlog = () => {
-        if (isAuthenticated) {
-            navigate('/write-blog');
-        } else {
-            setShowLogin(true);
-        }
+        // if (isAuthenticated) {
+        //     navigate('/write-blog');
+        // } else {
+        //     setShowLogin(true);
+        // }
+        navigate('/write-blog');
     };
 
     useEffect(() => {
@@ -84,7 +86,7 @@ const LandingPage = () => {
                 )}
             </section>
 
-            {showLogin && <Login onClose={() => setShowLogin(false)} />}
+            {/* {showLogin && <Login onClose={() => setShowLogin(false)} />} */}
         </div>
     );
 };

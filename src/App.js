@@ -32,8 +32,8 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route path="/post/:id" element={<FullArticle />} />
               <Route path="/search" element={<SearchResults />} />
-              <Route path="/write-blog" element={<PrivateRoute element={<WriteBlog />} />} />
-              <Route path="/admin" element={<PrivateRoute element={<AdminPanel />} />} />
+              <Route path="/write-blog" element={<WriteBlog />} />
+              <Route path="/admin" element={<AdminPanel />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
