@@ -15,30 +15,30 @@ import WriteBlog from './pages/WriteBlog';
 import FullArticle from './components/FullArticle';
 import AdminPanel from './components/AdminPanel';
 import SearchResults from './components/SearchResults';
-import PrivateRoute from './components/PrivateRoute';
-import { AuthProvider } from './context/AuthContext';
+// import PrivateRoute from './components/PrivateRoute';
+// import { AuthProvider } from './context/AuthContext';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <AuthProvider>
-          <GlobalStyles />
-          <Header />
-          <div className="App">
-            <Routes>
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/home" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/post/:id" element={<FullArticle />} />
-              <Route path="/search" element={<SearchResults />} />
-              <Route path="/write-blog" element={<WriteBlog />} />
-              <Route path="/admin" element={<AdminPanel />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </div>
-          <Footer />
-        </AuthProvider>
+        {/* <AuthProvider> */}
+        <GlobalStyles />
+        <Header />
+        <div className="App">
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/post/:id" element={<FullArticle />} />
+            <Route path="/search" element={<SearchResults />} />
+            <Route path="/write-blog" element={<WriteBlog />} />
+            <Route path="/admin" element={<AdminPanel />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
+        <Footer />
+        {/* </AuthProvider> */}
       </Router>
     </ThemeProvider>
   );
