@@ -18,7 +18,7 @@ const WriteBlog = () => {
         };
 
         try {
-            const response = await axios.post('https://backend-4ser4fvoo-princes-projects-f165a06c.vercel.app/api/posts', newPost);
+            const response = await axios.post('https://blog-backend-fd7d.onrender.com/api/posts', newPost);
             console.log('Response:', response);
             setTitle('');
             setContent('');

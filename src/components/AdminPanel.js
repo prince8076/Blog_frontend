@@ -12,7 +12,7 @@ const AdminPanel = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await axios.get('https://backend-4ser4fvoo-princes-projects-f165a06c.vercel.app/api/posts');
+                const response = await axios.get('https://blog-backend-fd7d.onrender.com/api/posts');
                 setPosts(response.data);
             } catch (error) {
                 console.error('Error fetching posts:', error);
@@ -26,7 +26,7 @@ const AdminPanel = () => {
     // Handle post deletion
     const handleDelete = async (postId) => {
         try {
-            await axios.delete(`https://backend-4ser4fvoo-princes-projects-f165a06c.vercel.app/api/posts/${postId}`);
+            await axios.delete(`https://blog-backend-fd7d.onrender.com/api/posts/${postId}`);
             setPosts(posts.filter(post => post._id !== postId));
         } catch (error) {
             console.error('Error deleting post:', error);
@@ -42,7 +42,7 @@ const AdminPanel = () => {
                 ...(updatedExcerpt && { excerpt: updatedExcerpt }),
                 ...(updatedImage && { image: updatedImage })
             };
-            await axios.put(`https://backend-4ser4fvoo-princes-projects-f165a06c.vercel.app/api/posts/${postId}`, updatedPost);
+            await axios.put(`https://blog-backend-fd7d.onrender.com/api/posts/${postId}`, updatedPost);
             setPosts(posts.map(post => (post._id === postId ? { ...post, ...updatedPost } : post)));
             setEditingPost(null);
             setUpdatedTitle('');
