@@ -33,7 +33,7 @@ const LandingPage = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await axios.get('https://blog-backend-fd7d.onrender.com/api/posts');
+                const response = await axios.get('https://backend-4ser4fvoo-princes-projects-f165a06c.vercel.app/api/posts');
                 const fetchedPosts = response.data;
                 const randomPosts = fetchedPosts.sort(() => 0.5 - Math.random()).slice(0, 2);
                 setPosts(randomPosts);

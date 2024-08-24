@@ -14,7 +14,7 @@ const SearchComponent = ({ query }) => {
     React.useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await axios.get('https://blog-backend-fd7d.onrender.com/api/posts');
+                const response = await axios.get('https://backend-4ser4fvoo-princes-projects-f165a06c.vercel.app/api/posts');
                 setPosts(response.data);
             } catch (error) {
                 console.error('Error fetching posts:', error);

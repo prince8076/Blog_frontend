@@ -6,109 +6,109 @@ import LogoImage from '../aseets/images/new_logo.png';
 import axios from 'axios';
 
 const theme = {
-    colors: {
-        primary: "#1a1a1a",
-        secondary: "#2a2a2a",
-        text: "#e0e0e0",
-        mutedText: "#bbb",
-        background: "#1a1a1a",
-        border: "#333",
-        accent: "#f39c12",
+  colors: {
+    primary: "#1a1a1a",
+    secondary: "#2a2a2a",
+    text: "#e0e0e0",
+    mutedText: "#bbb",
+    background: "#1a1a1a",
+    border: "#333",
+    accent: "#f39c12",
+  },
+  font: {
+    family: "Poppins",
+    size: {
+      large: "24px",
+      medium: "18px",
+      small: "14px",
+      xSmall: "12px",
     },
-    font: {
-        family: "Poppins",
-        size: {
-            large: "24px",
-            medium: "18px",
-            small: "14px",
-            xSmall: "12px",
-        },
-        weight: {
-            regular: 400,
-            medium: 500,
-            bold: 600,
-        },
+    weight: {
+      regular: 400,
+      medium: 500,
+      bold: 600,
     },
+  },
 };
 
 function Signup({ onClose, toggleForm }) {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (password !== confirmPassword) {
-            setError('Passwords do not match.');
-            return;
-        }
-        setLoading(true);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      setError('Passwords do not match.');
+      return;
+    }
+    setLoading(true);
 
-        try {
-            const response = await axios.post('https://blog-backend-fd7d.onrender.com/api/signup', {
-                email,
-                password
-            });
-            console.log('Signup successful:', response.data);
-            onClose();
-        } catch (error) {
-            console.error('Signup error:', error);
-            setError('Failed to sign up. Please try again.');
-        } finally {
-            setLoading(false);
-        }
-    };
+    try {
+      const response = await axios.post('https://backend-4ser4fvoo-princes-projects-f165a06c.vercel.app/api/signup', {
+        email,
+        password
+      });
+      console.log('Signup successful:', response.data);
+      onClose();
+    } catch (error) {
+      console.error('Signup error:', error);
+      setError('Failed to sign up. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    return (
-        <MainContainer>
-            <FirstContainer>
-                <SecondContainer>
-                    <CloseIcon icon={faTimes} onClick={onClose} />
-                    <ThirdContainer>
-                        <Logo src={LogoImage} alt="InkWave" />
-                        <Title>InkWave Blog</Title>
-                        <SignupForm onSubmit={handleSubmit}>
-                            <EmailInput
-                                type="email"
-                                placeholder="Enter your email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                            />
-                            <PasswordInput
-                                type="password"
-                                placeholder="Enter your password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
-                            />
-                            <ConfirmPasswordInput
-                                type="password"
-                                placeholder="Confirm your password"
-                                value={confirmPassword}
-                                onChange={(e) => setConfirmPassword(e.target.value)}
-                                required
-                            />
-                            <StyledButton type="submit" disabled={loading}>
-                                {loading ? 'Signing Up...' : 'Sign Up'}
-                            </StyledButton>
-                        </SignupForm>
-                        {error && <ErrorText>{error}</ErrorText>}
-                        <TermsText>
-                            By continuing, you agree to our{" "}
-                            <StyledLink>Terms & Conditions</StyledLink>
-                        </TermsText>
-                        <LoginText>
-                            Already have an account?{" "}
-                            <LoginLink onClick={toggleForm}>Log in</LoginLink>
-                        </LoginText>
-                    </ThirdContainer>
-                </SecondContainer>
-            </FirstContainer>
-        </MainContainer>
-    );
+  return (
+    <MainContainer>
+      <FirstContainer>
+        <SecondContainer>
+          <CloseIcon icon={faTimes} onClick={onClose} />
+          <ThirdContainer>
+            <Logo src={LogoImage} alt="InkWave" />
+            <Title>InkWave Blog</Title>
+            <SignupForm onSubmit={handleSubmit}>
+              <EmailInput
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <PasswordInput
+                type="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <ConfirmPasswordInput
+                type="password"
+                placeholder="Confirm your password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+              />
+              <StyledButton type="submit" disabled={loading}>
+                {loading ? 'Signing Up...' : 'Sign Up'}
+              </StyledButton>
+            </SignupForm>
+            {error && <ErrorText>{error}</ErrorText>}
+            <TermsText>
+              By continuing, you agree to our{" "}
+              <StyledLink>Terms & Conditions</StyledLink>
+            </TermsText>
+            <LoginText>
+              Already have an account?{" "}
+              <LoginLink onClick={toggleForm}>Log in</LoginLink>
+            </LoginText>
+          </ThirdContainer>
+        </SecondContainer>
+      </FirstContainer>
+    </MainContainer>
+  );
 }
 
 const flexCenter = css`

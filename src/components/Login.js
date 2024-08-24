@@ -9,102 +9,102 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const theme = {
-    colors: {
-        primary: "#1a1a1a",
-        secondary: "#2a2a2a",
-        text: "#e0e0e0",
-        mutedText: "#bbb",
-        background: "#1a1a1a",
-        border: "#333",
-        accent: "#f39c12",
+  colors: {
+    primary: "#1a1a1a",
+    secondary: "#2a2a2a",
+    text: "#e0e0e0",
+    mutedText: "#bbb",
+    background: "#1a1a1a",
+    border: "#333",
+    accent: "#f39c12",
+  },
+  font: {
+    family: "Poppins",
+    size: {
+      large: "24px",
+      medium: "18px",
+      small: "14px",
+      xSmall: "12px",
     },
-    font: {
-        family: "Poppins",
-        size: {
-            large: "24px",
-            medium: "18px",
-            small: "14px",
-            xSmall: "12px",
-        },
-        weight: {
-            regular: 400,
-            medium: 500,
-            bold: 600,
-        },
+    weight: {
+      regular: 400,
+      medium: 500,
+      bold: 600,
     },
+  },
 };
 
 function Login({ onClose, toggleForm }) {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
-    const { login } = useAuth();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setLoading(true);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
 
-        try {
-            const response = await axios.post('https://blog-backend-fd7d.onrender.com/api/login', {
-                email,
-                password
-            });
-            console.log('Login successful:', response.data);
-            localStorage.setItem('token', response.data.token);
-            login(); // Set authentication state
-            navigate('/');
-            onClose(); // Close the login form
-        } catch (error) {
-            console.error('Login error:', error);
-            setError('Failed to log in. Please check your email and password and try again.');
-        } finally {
-            setLoading(false);
-        }
-    };
+    try {
+      const response = await axios.post('https://backend-4ser4fvoo-princes-projects-f165a06c.vercel.app/api/login', {
+        email,
+        password
+      });
+      console.log('Login successful:', response.data);
+      localStorage.setItem('token', response.data.token);
+      login(); // Set authentication state
+      navigate('/');
+      onClose(); // Close the login form
+    } catch (error) {
+      console.error('Login error:', error);
+      setError('Failed to log in. Please check your email and password and try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    return (
-        <MainContainer>
-            <FirstContainer>
-                <SecondContainer>
-                    <CloseIcon icon={faTimes} onClick={onClose} />
-                    <ThirdContainer>
-                        <Logo src={LogoImage} alt="InkWave" />
-                        <Title>InkWave Blog</Title>
-                        <LoginForm onSubmit={handleSubmit}>
-                            <EmailInput
-                                type="email"
-                                placeholder="Enter your email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                            />
-                            <PasswordInput
-                                type="password"
-                                placeholder="Enter your password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
-                            />
-                            <StyledButton type="submit" disabled={loading}>
-                                {loading ? 'Logging In...' : 'Log In'}
-                            </StyledButton>
-                        </LoginForm>
-                        {error && <ErrorText>{error}</ErrorText>}
-                        <TermsText>
-                            By continuing, you agree to our{" "}
-                            <StyledLink>Terms & Conditions</StyledLink>
-                        </TermsText>
-                        <SignUpText>
-                            New here?{" "}
-                            <SignUpLink onClick={toggleForm}>Sign up</SignUpLink>
-                        </SignUpText>
-                    </ThirdContainer>
-                </SecondContainer>
-            </FirstContainer>
-        </MainContainer>
-    );
+  return (
+    <MainContainer>
+      <FirstContainer>
+        <SecondContainer>
+          <CloseIcon icon={faTimes} onClick={onClose} />
+          <ThirdContainer>
+            <Logo src={LogoImage} alt="InkWave" />
+            <Title>InkWave Blog</Title>
+            <LoginForm onSubmit={handleSubmit}>
+              <EmailInput
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <PasswordInput
+                type="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <StyledButton type="submit" disabled={loading}>
+                {loading ? 'Logging In...' : 'Log In'}
+              </StyledButton>
+            </LoginForm>
+            {error && <ErrorText>{error}</ErrorText>}
+            <TermsText>
+              By continuing, you agree to our{" "}
+              <StyledLink>Terms & Conditions</StyledLink>
+            </TermsText>
+            <SignUpText>
+              New here?{" "}
+              <SignUpLink onClick={toggleForm}>Sign up</SignUpLink>
+            </SignUpText>
+          </ThirdContainer>
+        </SecondContainer>
+      </FirstContainer>
+    </MainContainer>
+  );
 }
 
 const flexCenter = css`
