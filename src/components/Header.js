@@ -154,7 +154,7 @@ const Header = () => {
     <>
       <HeaderWrapper>
         <HeaderInner>
-          <LogoLink to="/" aria-label="InkWave home">
+          <LogoLink to="/" aria-label="SuccessWebTech home">
             <Logo height={38} />
           </LogoLink>
           <Nav aria-label="Main">

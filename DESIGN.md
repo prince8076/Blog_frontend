@@ -1,4 +1,4 @@
-# InkWave redesign v2 — magazine cover, all pages (branch only, NOT live)
+# SuccessWebTech redesign v2 — magazine cover, all pages (branch only, NOT live)
 
 ## What was wrong (from the live screenshots, 2026-10-30)
 - Logo: the cat logo includes "InkWave" plus a tiny "Welcome to Inkwave"
@@ -85,3 +85,13 @@
   code-split Admin/Write/Search; no Google Fonts.
 - Render cold start itself is not fixed by the frontend — only a paid
   Render plan or moving the backend removes it.
+
+## Rebrand 2026-10-30 (branch rebrand-successwebtech-2026-10-30)
+- Site renamed from InkWave to SuccessWebTech to match the domain
+  successwebtech.in. Logo wordmark, page title, meta/OG/JSON-LD,
+  manifest, About, Privacy, Footer, and the login/signup modals (which
+  still used the old cat PNG) all use SuccessWebTech now.
+- Deliberately NOT renamed: internal localStorage cache keys
+  (inkwave_posts_v2) — renaming them would only throw away the
+  reader's cache for no visible benefit — and the post snapshot data
+  itself, which is article content, not branding.

@@ -3,7 +3,7 @@ import { API_BASE } from '../api';
 import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import LogoImage from '../aseets/images/new_logo.png';
+import BrandLogo from './Logo';
 import axios from 'axios';
 
 const theme = {
@@ -68,8 +68,8 @@ function Signup({ onClose, toggleForm }) {
         <SecondContainer>
           <CloseIcon icon={faTimes} onClick={onClose} />
           <ThirdContainer>
-            <Logo src={LogoImage} alt="InkWave" />
-            <Title>InkWave Blog</Title>
+            <BrandLogo height={36} onDark={false} />
+            <Title>SuccessWebTech Blog</Title>
             <SignupForm onSubmit={handleSubmit}>
               <EmailInput
                 type="email"
@@ -159,12 +159,6 @@ const commonTextStyle = css`
   font-family: ${theme.font.family};
   text-align: center;
   color: ${theme.colors.text};
-`;
-
-const Logo = styled.img`
-  width: 150px;
-  height: auto;
-  margin-bottom: 10px;
 `;
 
 const Title = styled.h2`

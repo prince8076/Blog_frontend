@@ -36,7 +36,7 @@ const Privacy = () => (
   <Section>
     <Title>Privacy Policy</Title>
     <Body>
-      InkWave Blog is a reading and publishing site for technology, travel,
+      SuccessWebTech Blog is a reading and publishing site for technology, travel,
       and lifestyle articles. This policy describes what the site stores in
       your browser and what it does not collect.
     </Body>

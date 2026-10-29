@@ -53,9 +53,9 @@ const SecondaryLink = styled(Link)`
 
 const About = () => (
   <AboutSection>
-    <Title>About InkWave</Title>
+    <Title>About SuccessWebTech</Title>
     <Body>
-      InkWave is a blog about technology, travel, and lifestyle — practical
+      SuccessWebTech is a blog about technology, travel, and lifestyle — practical
       development notes, travel stories, and ideas worth reading.
     </Body>
     <Body>
