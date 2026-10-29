@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
+import { LoadingState } from './components/LoadingState';
 import { ThemeProvider } from 'styled-components';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import GlobalStyles from './styles/GlobalStyles';
@@ -11,12 +12,13 @@ import About from './pages/About';
 
 import NotFound from './pages/NotFound';
 import Home from './pages/Home';
-import WriteBlog from './pages/WriteBlog';
 import FullArticle from './components/FullArticle';
-import AdminPanel from './components/AdminPanel';
-import SearchResults from './components/SearchResults';
 // import PrivateRoute from './components/PrivateRoute';
 import { AuthProvider } from './context/AuthContext';
+
+const WriteBlog = lazy(() => import('./pages/WriteBlog'));
+const AdminPanel = lazy(() => import('./components/AdminPanel'));
+const SearchResults = lazy(() => import('./components/SearchResults'));
 
 function App() {
   return (
@@ -26,6 +28,7 @@ function App() {
           <GlobalStyles />
           <Header />
           <div className="App">
+            <Suspense fallback={<LoadingState label="Loading page…" />}>
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/home" element={<Home />} />
@@ -36,6 +39,7 @@ function App() {
               <Route path="/admin" element={<AdminPanel />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
+            </Suspense>
           </div>
           <Footer />
         </AuthProvider>

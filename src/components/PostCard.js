@@ -2,24 +2,38 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { optimizeImage, readingTime } from '../api';
 
-const FeaturedPosts = ({ posts = [] }) => {
+// Editorial card: white surface on paper, serif title, one meta line
+// (reading time, derived from the excerpt), lazy optimized image.
+const FeaturedPosts = ({ posts = [], title = 'Latest articles' }) => {
   if (!Array.isArray(posts)) {
     return <p>No posts available.</p>;
   }
 
   return (
     <FeaturedPostsWrapper>
-      <h2>Featured Posts</h2>
+      <h2>{title}</h2>
       <PostsList>
         {posts.length > 0 ? (
           posts.map(post => (
             <PostCard key={post._id}>
               <Link to={`/post/${post._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                <PostImage src={post.image} alt={post.title} />
+                {post.image && (
+                  <PostImage
+                    src={optimizeImage(post.image, 800)}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                    width="800"
+                    height="450"
+                  />
+                )}
                 <PostContent>
                   <PostTitle>{post.title}</PostTitle>
+                  <PostMeta>{readingTime(post.excerpt)}</PostMeta>
                   <PostExcerpt>{post.excerpt}</PostExcerpt>
+                  <ReadMore>Read article</ReadMore>
                 </PostContent>
               </Link>
             </PostCard>
@@ -33,34 +47,38 @@ const FeaturedPosts = ({ posts = [] }) => {
 };
 
 FeaturedPosts.propTypes = {
-  posts: PropTypes.array.isRequired
+  posts: PropTypes.array.isRequired,
+  title: PropTypes.string
 };
 
 const FeaturedPostsWrapper = styled.div`
-  background-color: ${({ theme }) => theme.colors.primary};
+  background-color: ${({ theme }) => theme.colors.paper};
   color: ${({ theme }) => theme.colors.text};
-  padding: 2rem;
+  padding: 2rem 1rem;
+  max-width: 1120px;
+  margin: 0 auto;
+  min-width: 0;
 `;
 
 const PostsList = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
   gap: 1.5rem;
 `;
 
-const PostCard = styled.div`
+const PostCard = styled.article`
   background-color: ${({ theme }) => theme.colors.secondary};
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
   overflow: hidden;
   width: 100%;
+  min-width: 0;
   text-align: left;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 
   &:hover {
     transform: translateY(-4px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.10);
   }
 `;
 
@@ -68,6 +86,7 @@ const PostImage = styled.img`
   height: 200px;
   object-fit: cover;
   width: 100%;
+  display: block;
 `;
 
 const PostContent = styled.div`
@@ -76,20 +95,36 @@ const PostContent = styled.div`
 
 const PostTitle = styled.h3`
   color: ${({ theme }) => theme.colors.text};
-  font-size: ${({ theme }) => theme.font.size.medium};
-  font-weight: ${({ theme }) => theme.font.weight.bold};
-  margin: 0;
+  font-family: ${({ theme }) => theme.font.display};
+  font-size: 1.35rem;
+  line-height: 1.25;
+  font-weight: 700;
+  margin: 0 0 0.4rem;
+  overflow-wrap: break-word;
+  min-width: 0;
+`;
+
+const PostMeta = styled.p`
+  color: ${({ theme }) => theme.colors.mutedText};
+  font-size: ${({ theme }) => theme.font.size.small};
+  margin: 0 0 0.6rem;
 `;
 
 const PostExcerpt = styled.p`
   color: ${({ theme }) => theme.colors.mutedText};
   font-size: ${({ theme }) => theme.font.size.small};
-  margin: 0;
+  margin: 0 0 0.8rem;
   display: -webkit-box;
-  -webkit-line-clamp: 3; 
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+`;
+
+const ReadMore = styled.span`
+  color: ${({ theme }) => theme.colors.accent};
+  font-weight: 600;
+  font-size: ${({ theme }) => theme.font.size.small};
 `;
 
 export default FeaturedPosts;

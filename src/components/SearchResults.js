@@ -58,8 +58,8 @@ const SearchComponent = ({ query }) => {
 
             <style jsx>{`
                 .featured-posts {
-                    background-color: #1a1a1a;
-                    color: #e0e0e0;
+                    background-color: #faf9f6;
+                    color: #1a1a1a;
                     padding: 2rem;
                 }
 
@@ -70,8 +70,8 @@ const SearchComponent = ({ query }) => {
                 }
 
                 .post-card {
-                    background-color: #2a2a2a;
-                    border: 1px solid #333;
+                    background-color: #ffffff;
+                    border: 1px solid #e7e2d9;
                     border-radius: 8px;
                     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
                     overflow: hidden;
@@ -90,13 +90,13 @@ const SearchComponent = ({ query }) => {
                 }
 
                 .post-card h3 {
-                    color: #e0e0e0;
+                    color: #1a1a1a;
                     font-size: 1.2rem;
                     margin: 1rem;
                 }
 
                 .post-excerpt {
-                    color: #bbb;
+                    color: #666666;
                     font-size: 1rem;
                     margin: 0;
                     display: -webkit-box;
@@ -119,7 +119,7 @@ const SearchResults = () => {
 
     return (
         <div style={{ padding: '20px' }}>
-            <h1 style={{ color: '#e0e0e0' }}>Search Results for: "{query}"</h1>
+            <h1 style={{ color: '#1a1a1a' }}>Search Results for: "{query}"</h1>
             <SearchComponent query={query} />
         </div>
     );

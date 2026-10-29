@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 const FooterWrapper = styled.footer`
-  background: ${({ theme }) => theme.colors.primary};
+  background: ${({ theme }) => theme.colors.headerBg};
   padding: 2rem;
   text-align: center;
-  color: ${({ theme }) => theme.colors.text};
+  color: ${({ theme }) => theme.colors.headerText};
 `;
 
 const Footer = () => (

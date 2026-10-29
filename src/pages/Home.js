@@ -1,34 +1,22 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import FeaturedPosts from '../components/PostCard';
-import { LoadingState, ErrorState } from '../components/LoadingState';
-import { getPosts } from '../api';
+import { usePosts } from '../hooks/usePosts';
 
 const HomePage = () => {
-    const [posts, setPosts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    const fetchPosts = useCallback(async () => {
-        setLoading(true);
-        setError(null);
-        try {
-            setPosts(await getPosts());
-        } catch (err) {
-            setError('Failed to fetch posts. The backend may still be waking up — please try again.');
-            console.error(err);
-        } finally {
-            setLoading(false);
-        }
-    }, []);
-
-    useEffect(() => { fetchPosts(); }, [fetchPosts]);
-
-    if (loading) return <LoadingState />;
-    if (error) return <ErrorState message={error} onRetry={fetchPosts} />;
+    const { posts, isSnapshot, isRefreshing, error, refresh } = usePosts();
 
     return (
         <div>
-            <FeaturedPosts posts={posts} />
+            {isSnapshot && (
+                <p style={{ maxWidth: 1120, margin: '1rem auto', padding: '0 1rem', color: '#666' }}>
+                    Showing saved articles while the backend wakes up
+                    {isRefreshing ? ' — checking for new articles…' : ''}
+                    {!isRefreshing && error && (
+                        <> · <button onClick={refresh} style={{ background: 'none', border: 'none', color: '#b45309', fontWeight: 600, cursor: 'pointer', padding: 0 }}>Try again</button></>
+                    )}
+                </p>
+            )}
+            <FeaturedPosts posts={posts} title="All articles" />
         </div>
     );
 };
