@@ -1,5 +1,5 @@
 // Editorial tokens. All colours and fonts in the app go through here
-// (Hallmark Floor). Dark masthead keeps the white InkWave logo readable;
+// (Hallmark Floor). Dark masthead keeps the white SuccessWebTech logo readable;
 // the reading surface itself is light paper, not the old dark theme.
 const theme = {
     colors: {

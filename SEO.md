@@ -1,4 +1,4 @@
-# InkWave SEO + ads — what was done, what you must do next (branch only)
+# SuccessWebTech SEO + ads — what was done, what you must do next (branch only)
 
 ## Source skill
 - https://github.com/AgricIDaniel/claude-seo (MIT) — a Claude Code

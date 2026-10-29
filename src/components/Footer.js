@@ -70,7 +70,7 @@ const Footer = () => (
         <Link to="/privacy">Privacy Policy</Link>
       </FooterNav>
     </FooterInner>
-    <Copy>© {new Date().getFullYear()} InkWave Blog — Tech, Travel &amp; Lifestyle.</Copy>
+    <Copy>© {new Date().getFullYear()} SuccessWebTech Blog — Tech, Travel &amp; Lifestyle.</Copy>
   </FooterWrapper>
 );
 
