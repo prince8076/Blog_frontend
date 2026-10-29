@@ -127,21 +127,21 @@ const AdminPanel = () => {
 
             <style jsx>{`
                 .admin-panel {
-                    background-color: #121212;
-                    color: #e0e0e0;
+                    background-color: #faf9f6;
+                    color: #1a1a1a;
                     padding: 2rem;
                     border-radius: 8px;
-                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
                     max-width: 800px;
                     margin: 2rem auto;
-                    font-family: 'Poppins', sans-serif;
+                    font-family: system-ui, Arial, sans-serif;
                 }
 
                 h2 {
                     text-align: center;
                     margin-bottom: 2rem;
                     font-size: 2rem;
-                    color: #ffffff;
+                    color: #1a1a1a;
                 }
 
                 .post-list {
@@ -150,15 +150,15 @@ const AdminPanel = () => {
                 }
 
                 .post-item {
-                    background-color: #1f1f1f;
-                    border: 1px solid #333;
+                    background-color: #ffffff;
+                    border: 1px solid #e7e2d9;
                     border-radius: 8px;
                     margin-bottom: 1rem;
                     padding: 1rem;
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
-                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
                 }
 
                 .post-info {
@@ -182,12 +182,12 @@ const AdminPanel = () => {
                 .post-details h3 {
                     font-size: 1.3rem;
                     margin: 0;
-                    color: #e0e0e0;
+                    color: #1a1a1a;
                 }
 
                 .post-details p {
                     font-size: 1rem;
-                    color: #b0b0b0;
+                    color: #666666;
                     margin: 0.5rem 0 0;
                 }
 
@@ -206,17 +206,17 @@ const AdminPanel = () => {
                 }
 
                 .edit-button {
-                    background-color: #00aaff;
+                    background-color: #b45309;
                     color: #ffffff;
                 }
 
                 .edit-button:hover {
-                    background-color: #007bb5;
+                    background-color: #92400e;
                     transform: scale(1.05);
                 }
 
                 .delete-button {
-                    background-color: #ff4d4d;
+                    background-color: #b91c1c;
                     color: #ffffff;
                 }
 
@@ -230,7 +230,7 @@ const AdminPanel = () => {
                     background-color: #2a2a2a;
                     padding: 1rem;
                     border-radius: 8px;
-                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
                 }
 
                 .update-form h4 {
