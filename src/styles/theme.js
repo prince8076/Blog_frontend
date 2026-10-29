@@ -4,12 +4,12 @@ const theme = {
         secondary: "#2a2a2a",
         text: "#e0e0e0",
         mutedText: "#bbb",
-        background: "#1a1a1a",
+        background: "#121212",
         border: "#333",
         accent: "#f39c12",
     },
     font: {
-        family: "Poppins, sans-serif",
+        family: "'Poppins', Arial, sans-serif",
         size: {
             large: "24px",
             medium: "18px",

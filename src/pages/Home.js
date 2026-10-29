@@ -1,29 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, useCallback } from 'react';
 import FeaturedPosts from '../components/PostCard';
+import { LoadingState, ErrorState } from '../components/LoadingState';
+import { getPosts } from '../api';
 
 const HomePage = () => {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchPosts = async () => {
-            try {
-                const response = await axios.get('https://blog-backend-fd7d.onrender.com/api/posts');
-                setPosts(response.data);
-            } catch (err) {
-                setError('Failed to fetch posts');
-                console.error(err);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchPosts();
+    const fetchPosts = useCallback(async () => {
+        setLoading(true);
+        setError(null);
+        try {
+            setPosts(await getPosts());
+        } catch (err) {
+            setError('Failed to fetch posts. The backend may still be waking up — please try again.');
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
     }, []);
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>{error}</p>;
+    useEffect(() => { fetchPosts(); }, [fetchPosts]);
+
+    if (loading) return <LoadingState />;
+    if (error) return <ErrorState message={error} onRetry={fetchPosts} />;
 
     return (
         <div>

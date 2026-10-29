@@ -1,5 +1,6 @@
 // src/components/Login.js
 import React, { useState } from "react";
+import { API_BASE } from '../api';
 import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -47,18 +48,19 @@ function Login({ onClose, toggleForm }) {
     setLoading(true);
 
     try {
-      const response = await axios.post('https://backend-4ser4fvoo-princes-projects-f165a06c.vercel.app/api/login', {
+      const response = await axios.post(`${API_BASE}/api/login`, {
         email,
         password
       });
       console.log('Login successful:', response.data);
-      localStorage.setItem('token', response.data.token);
+      const token = response.data.token || response.data.user?.token;
+      if (token) localStorage.setItem('token', token);
       login(); // Set authentication state
       navigate('/');
       onClose(); // Close the login form
     } catch (error) {
       console.error('Login error:', error);
-      setError('Failed to log in. Please check your email and password and try again.');
+      setError(error.response?.data?.message || 'Failed to log in. Please check your email and password and try again.');
     } finally {
       setLoading(false);
     }

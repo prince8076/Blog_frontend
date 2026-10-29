@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './LandingPage.css';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { getPosts } from '../../api';
+import { LoadingState, ErrorState } from '../LoadingState';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
-import Login from '../Login';
 
 const LandingPage = () => {
     const navigate = useNavigate();
-    const { isAuthenticated } = useAuth();
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -35,12 +33,11 @@ const LandingPage = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await axios.get('https://blog-backend-fd7d.onrender.com/api/posts');
-                const fetchedPosts = response.data;
-                const randomPosts = fetchedPosts.sort(() => 0.5 - Math.random()).slice(0, 2);
+                const fetchedPosts = await getPosts();
+                const randomPosts = [...fetchedPosts].sort(() => 0.5 - Math.random()).slice(0, 2);
                 setPosts(randomPosts);
             } catch (err) {
-                setError('Failed to fetch posts');
+                setError('Failed to fetch posts. The backend may still be waking up — please try again.');
                 console.error(err);
             } finally {
                 setLoading(false);
@@ -64,9 +61,9 @@ const LandingPage = () => {
             <section className="featured-posts">
                 <h2>Featured Articles</h2>
                 {loading ? (
-                    <p>Loading...</p>
+                    <LoadingState label="Loading featured articles…" />
                 ) : error ? (
-                    <p>{error}</p>
+                    <ErrorState message={error} onRetry={() => window.location.reload()} />
                 ) : (
                     <div className="posts-grid">
                         {posts.map((post) => (
@@ -76,7 +73,7 @@ const LandingPage = () => {
                                     <div className="post-content">
                                         <h3>{post.title}</h3>
                                         <p className="post-excerpt">
-                                            {post.excerpt.length > 100 ? post.excerpt.substring(0, 100) + '...' : post.excerpt}
+                                            {(post.excerpt || '').length > 100 ? post.excerpt.substring(0, 100) + '...' : (post.excerpt || '')}
                                         </p>
                                     </div>
                                 </div>

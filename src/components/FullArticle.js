@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { API_BASE } from '../api';
+import { LoadingState, ErrorState } from './LoadingState';
 
 const FullArticle = () => {
     const { id } = useParams();
@@ -10,7 +12,7 @@ const FullArticle = () => {
     useEffect(() => {
         const fetchPost = async () => {
             try {
-                const response = await fetch(`https://blog-backend-fd7d.onrender.com/api/posts/${id}`);
+                const response = await fetch(`${API_BASE}/api/posts/${id}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch post');
                 }
@@ -27,11 +29,11 @@ const FullArticle = () => {
     }, [id]);
 
     if (loading) {
-        return <p>Loading...</p>;
+        return <LoadingState label="Loading article…" />;
     }
 
     if (error) {
-        return <p>{error}</p>;
+        return <ErrorState message={error} onRetry={() => window.location.reload()} />;
     }
 
     if (!post) {
@@ -42,7 +44,7 @@ const FullArticle = () => {
         <div className="full-article">
             <h1>{post.title}</h1>
             <img src={post.image} alt={post.title} className="article-image" />
-            <p>{post.excerpt}</p>
+            <p>{post.excerpt || ''}</p>
 
             <style jsx>{`
                 .full-article {
@@ -62,7 +64,7 @@ const FullArticle = () => {
                 h1 {
                     font-size: 2.5rem;
                     margin-bottom: 1rem;
-                    color: #ff0000; 
+                    color: #f9a825; 
 }
 
                 p {

@@ -8,10 +8,10 @@ const AboutSection = styled.section`
 
 const About = () => (
     <AboutSection>
-        <h2>About Me</h2>
+        <h2>About InkWave</h2>
         <p>
-            I’m a passionate developer and blogger. I write about technology,
-            development tips, and personal experiences.
+            InkWave is a blog about technology, travel, and lifestyle —
+            practical development notes, travel stories, and ideas worth reading.
         </p>
     </AboutSection>
 );

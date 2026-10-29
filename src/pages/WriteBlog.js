@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { API_BASE, clearPostsCache } from '../api';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,11 +19,12 @@ const WriteBlog = () => {
         };
 
         try {
-            const response = await axios.post('https://blog-backend-fd7d.onrender.com/api/posts', newPost);
+            const response = await axios.post(`${API_BASE}/api/posts`, newPost);
             console.log('Response:', response);
             setTitle('');
             setContent('');
             setImage('');
+            clearPostsCache();
             navigate("/")
         } catch (error) {
             console.error('Error creating blog post:', error);

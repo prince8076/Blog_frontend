@@ -43,9 +43,9 @@ const FeaturedPostsWrapper = styled.div`
 `;
 
 const PostsList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4.5rem; 
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
 `;
 
 const PostCard = styled.div`
@@ -54,12 +54,12 @@ const PostCard = styled.div`
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
   overflow: hidden;
-  width: 300px;
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  text-align: left;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 
   &:hover {
-    transform: scale(1.03);
+    transform: translateY(-4px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
   }
 `;

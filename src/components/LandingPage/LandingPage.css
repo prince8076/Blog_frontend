@@ -18,36 +18,62 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 68vh;
+    padding: 64px 20px;
+    background-color: #1a1a1a;
     background-image: url('../../aseets/images/pexels-danielabsi-952670.jpg');
     background-size: cover;
     background-position: center;
     color: #ffffff;
     text-align: center;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.hero-content {
+    max-width: 720px;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
 }
 
 .hero-title {
-    font-size: 3rem;
-    margin-bottom: 20px;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    line-height: 1.15;
+    margin-bottom: 16px;
 }
 
 .hero-subtitle {
-    font-size: 1.5rem;
-    margin-bottom: 40px;
+    font-size: clamp(1.05rem, 2.5vw, 1.5rem);
+    margin-bottom: 32px;
+    color: #e0e0e0;
 }
 
 .cta-button {
-    padding: 10px 20px;
+    padding: 12px 24px;
+    margin: 0 8px 8px 0;
     font-size: 1rem;
+    font-weight: 600;
     color: #121212;
     background-color: #f9a825;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .cta-button:hover {
     background-color: #f57f17;
+    transform: translateY(-2px);
+}
+
+.write-blog-button {
+    background-color: transparent;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+}
+
+.write-blog-button:hover {
+    background-color: #ffffff;
+    color: #121212;
 }
 
 /* About Section */
@@ -79,7 +105,7 @@ body {
 }
 
 .featured-posts h2 {
-    font-size: 2.5rem;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
     margin-bottom: 20px;
     text-align: center;
 }
@@ -93,8 +119,15 @@ body {
 .post {
     background-color: #1e1e1e;
     padding: 20px;
-    border-radius: 10px;
-    text-align: center;
+    border-radius: 12px;
+    text-align: left;
+    border: 1px solid #333;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
 }
 
 .post-image {

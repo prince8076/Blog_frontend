@@ -1,4 +1,5 @@
 import React from 'react';
+import { API_BASE } from '../api';
 import { useLocation, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import axios from 'axios';
@@ -14,7 +15,7 @@ const SearchComponent = ({ query }) => {
     React.useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await axios.get('https://blog-backend-fd7d.onrender.com/api/posts');
+                const response = await axios.get(`${API_BASE}/api/posts`);
                 setPosts(response.data);
             } catch (error) {
                 console.error('Error fetching posts:', error);

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { API_BASE, clearPostsCache } from '../api';
 import axios from 'axios';
 
 const AdminPanel = () => {
@@ -12,7 +13,7 @@ const AdminPanel = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await axios.get('https://blog-backend-fd7d.onrender.com/api/posts');
+                const response = await axios.get(`${API_BASE}/api/posts`);
                 setPosts(response.data);
             } catch (error) {
                 console.error('Error fetching posts:', error);
@@ -26,7 +27,8 @@ const AdminPanel = () => {
     // Handle post deletion
     const handleDelete = async (postId) => {
         try {
-            await axios.delete(`https://blog-backend-fd7d.onrender.com/api/posts/${postId}`);
+            await axios.delete(`${API_BASE}/api/posts/${postId}`);
+            clearPostsCache();
             setPosts(posts.filter(post => post._id !== postId));
         } catch (error) {
             console.error('Error deleting post:', error);
@@ -42,7 +44,8 @@ const AdminPanel = () => {
                 ...(updatedExcerpt && { excerpt: updatedExcerpt }),
                 ...(updatedImage && { image: updatedImage })
             };
-            await axios.put(`https://blog-backend-fd7d.onrender.com/api/posts/${postId}`, updatedPost);
+            await axios.put(`${API_BASE}/api/posts/${postId}`, updatedPost);
+            clearPostsCache();
             setPosts(posts.map(post => (post._id === postId ? { ...post, ...updatedPost } : post)));
             setEditingPost(null);
             setUpdatedTitle('');

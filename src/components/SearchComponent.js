@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_BASE } from '../api';
 import axios from 'axios';
 
 const SearchComponent = ({ query }) => {
@@ -10,7 +11,7 @@ const SearchComponent = ({ query }) => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await axios.get('https://blog-backend-fd7d.onrender.com/api/posts');
+                const response = await axios.get(`${API_BASE}/api/posts`);
                 setPosts(response.data);
                 setLoading(false);
             } catch (error) {

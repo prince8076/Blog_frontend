@@ -10,7 +10,7 @@ const FooterWrapper = styled.footer`
 
 const Footer = () => (
     <FooterWrapper>
-        <p>© 2024 My Blog. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} InkWave Blog — Tech, Travel &amp; Lifestyle. All rights reserved.</p>
     </FooterWrapper>
 );
 

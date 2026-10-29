@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { API_BASE } from '../api';
 import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -47,7 +48,7 @@ function Signup({ onClose, toggleForm }) {
     setLoading(true);
 
     try {
-      const response = await axios.post('https://backend-4ser4fvoo-princes-projects-f165a06c.vercel.app/api/signup', {
+      const response = await axios.post(`${API_BASE}/api/signup`, {
         email,
         password
       });
@@ -55,7 +56,7 @@ function Signup({ onClose, toggleForm }) {
       onClose();
     } catch (error) {
       console.error('Signup error:', error);
-      setError('Failed to sign up. Please try again.');
+      setError(error.response?.data?.message || 'Failed to sign up. Please try again.');
     } finally {
       setLoading(false);
     }

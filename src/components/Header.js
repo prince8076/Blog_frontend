@@ -12,8 +12,14 @@ const HeaderWrapper = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   z-index: 1000;
+
+  @media (max-width: 700px) {
+    padding: 0.75rem 1rem;
+  }
 `;
 
 const LogoLink = styled(Link)`
@@ -22,13 +28,15 @@ const LogoLink = styled(Link)`
 `;
 
 const Logo = styled.img`
-  height: 80px;
+  height: 56px;
   width: auto;
 `;
 
 const Nav = styled.nav`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 0.25rem;
 
   a {
     margin-left: 1rem;
@@ -126,7 +134,7 @@ const Header = () => {
     <>
       <HeaderWrapper>
         <LogoLink to="/">
-          <Logo src={LogoImage} alt="Logo" />
+          <Logo src={LogoImage} alt="InkWave Blog" />
         </LogoLink>
         <Nav>
           <Link to="/">Home</Link>
@@ -144,6 +152,7 @@ const Header = () => {
         </Nav>
         <SearchInput
           type="text"
+          aria-label="Search posts"
           placeholder="Search..."
           value={query}
           onChange={handleInputChange}
