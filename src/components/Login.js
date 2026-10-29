@@ -11,16 +11,16 @@ import { useAuth } from '../context/AuthContext';
 
 const theme = {
   colors: {
-    primary: "#1a1a1a",
-    secondary: "#2a2a2a",
-    text: "#e0e0e0",
-    mutedText: "#bbb",
-    background: "#1a1a1a",
-    border: "#333",
-    accent: "#f39c12",
+    primary: "#ffffff",
+    secondary: "#faf9f6",
+    text: "#1a1a1a",
+    mutedText: "#666666",
+    background: "#ffffff",
+    border: "#e7e2d9",
+    accent: "#b45309",
   },
   font: {
-    family: "Poppins",
+    family: "system-ui, Arial, sans-serif",
     size: {
       large: "24px",
       medium: "18px",
@@ -305,7 +305,7 @@ const CloseIcon = styled(FontAwesomeIcon)`
 
 const ErrorText = styled.p`
   ${commonTextStyle}
-  color: ${theme.colors.accent};
+  color: #b91c1c;
   font-size: ${theme.font.size.small};
 `;
 

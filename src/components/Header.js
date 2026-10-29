@@ -7,7 +7,9 @@ import Signup from './Signup';
 import { useAuth } from '../context/AuthContext';
 
 const HeaderWrapper = styled.header`
-  background: ${({ theme }) => theme.colors.primary};
+  background: ${({ theme }) => theme.colors.headerBg};
+  position: sticky;
+  top: 0;
   padding: 1rem 2rem;
   display: flex;
   align-items: center;
@@ -40,7 +42,7 @@ const Nav = styled.nav`
 
   a {
     margin-left: 1rem;
-    color: ${({ theme }) => theme.colors.text};
+    color: ${({ theme }) => theme.colors.headerText};
     font-weight: bold;
     text-decoration: none;
     transition: color 0.3s ease;
@@ -62,19 +64,21 @@ const SearchInput = styled.input`
   margin-left: 1rem;
   border: 1px solid ${({ theme }) => theme.colors.mutedText};
   border-radius: 4px;
-  background: ${({ theme }) => theme.colors.secondary};
-  color: ${({ theme }) => theme.colors.text};
+  background: #222222;
+  color: ${({ theme }) => theme.colors.headerText};
   outline: none;
 
   &:focus {
     border-color: ${({ theme }) => theme.colors.accent};
-    background: ${({ theme }) => theme.colors.primary};
+    background: ${({ theme }) => theme.colors.headerBg};
+  position: sticky;
+  top: 0;
   }
 `;
 
 const Button = styled.button`
   background-color: ${({ theme }) => theme.colors.accent};
-  color: ${({ theme }) => theme.colors.text};
+  color: #ffffff;
   border: 2px solid ${({ theme }) => theme.colors.primary};
   border-radius: 5px;
   padding: 0.5rem 1rem;
@@ -85,9 +89,9 @@ const Button = styled.button`
   outline: none;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.primary};
+    background-color: transparent;
     border-color: ${({ theme }) => theme.colors.accent};
-    color: ${({ theme }) => theme.colors.background};
+    color: #ffffff;
   }
 `;
 

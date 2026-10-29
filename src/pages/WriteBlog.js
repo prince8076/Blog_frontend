@@ -72,11 +72,11 @@ const WriteBlog = () => {
                     max-width: 600px;
                     margin: 2rem auto;
                     padding: 2rem;
-                    background-color: #1e1e1e;
+                    background-color: #ffffff;
                     border-radius: 10px;
                     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-                    color: #e0e0e0;
-                    font-family: 'Poppins', sans-serif;
+                    color: #1a1a1a;
+                    font-family: system-ui, Arial, sans-serif;
                 }
 
                 h2 {
@@ -110,8 +110,8 @@ const WriteBlog = () => {
                     font-size: 1rem;
                     border-radius: 5px;
                     border: 1px solid #444;
-                    background-color: #2a2a2a;
-                    color: #e0e0e0;
+                    background-color: #faf9f6;
+                    color: #1a1a1a;
                 }
 
                 .form-group textarea {
@@ -121,7 +121,7 @@ const WriteBlog = () => {
 
                 .submit-button {
                     padding: 0.9rem 1.5rem;
-                    background-color: #6200ea;
+                    background-color: #b45309;
                     color: #ffffff;
                     border: none;
                     border-radius: 5px;
@@ -132,7 +132,7 @@ const WriteBlog = () => {
                 }
 
                 .submit-button:hover {
-                    background-color: #3700b3;
+                    background-color: #92400e;
                     transform: scale(1.05);
                 }
             `}</style>
