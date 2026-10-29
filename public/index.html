@@ -11,6 +11,44 @@
       name="description"
       content="InkWave Blog — insights on Tech, Travel, and Lifestyle."
     />
+    <link rel="canonical" href="https://successwebtech.in/" />
+    <meta property="og:title" content="InkWave Blog — Tech, Travel &amp; Lifestyle" />
+    <meta property="og:description" content="InkWave Blog — insights on Tech, Travel, and Lifestyle." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://successwebtech.in/" />
+    <meta property="og:site_name" content="InkWave Blog" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="InkWave Blog — Tech, Travel &amp; Lifestyle" />
+    <meta name="twitter:description" content="InkWave Blog — insights on Tech, Travel, and Lifestyle." />
+    <!-- No og:image: the site has no suitable PNG/JPG brand image (the logo
+         is SVG, which most social crawlers do not use as an OG image), and
+         inventing one would be worse than omitting it. Per-article OG tags
+         are not possible in this client-rendered app without prerendering;
+         see SEO.md. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Blog",
+          "name": "InkWave Blog",
+          "url": "https://successwebtech.in/",
+          "description": "InkWave Blog — insights on Tech, Travel, and Lifestyle.",
+          "inLanguage": "en"
+        },
+        {
+          "@type": "WebSite",
+          "name": "InkWave Blog",
+          "url": "https://successwebtech.in/",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://successwebtech.in/search?query={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        }
+      ]
+    }
+    </script>
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/favicon.svg" />
     <!--
       manifest.json provides metadata used when your web app is installed on a

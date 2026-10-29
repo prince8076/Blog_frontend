@@ -9,6 +9,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import LandingPage from './components/LandingPage/LandingPage';
 import About from './pages/About';
+import Privacy from './pages/Privacy';
 
 import NotFound from './pages/NotFound';
 import Home from './pages/Home';
@@ -33,6 +34,7 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route path="/home" element={<Home />} />
               <Route path="/about" element={<About />} />
+              <Route path="/privacy" element={<Privacy />} />
               <Route path="/post/:id" element={<FullArticle />} />
               <Route path="/search" element={<SearchResults />} />
               <Route path="/write-blog" element={<WriteBlog />} />

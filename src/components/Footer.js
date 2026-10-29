@@ -67,6 +67,7 @@ const Footer = () => (
         <Link to="/home">All articles</Link>
         <Link to="/about">About</Link>
         <Link to="/write-blog">Write a blog</Link>
+        <Link to="/privacy">Privacy Policy</Link>
       </FooterNav>
     </FooterInner>
     <Copy>© {new Date().getFullYear()} InkWave Blog — Tech, Travel &amp; Lifestyle.</Copy>

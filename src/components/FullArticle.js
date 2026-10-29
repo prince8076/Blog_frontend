@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { API_BASE, getCachedPosts, optimizeImage, readingTime } from '../api';
 import { LoadingState, ErrorState } from './LoadingState';
+import AdSlot from './AdSlot';
 
 const FullArticle = () => {
     const { id } = useParams();
@@ -52,6 +53,7 @@ const FullArticle = () => {
                 />
             )}
             <p className="article-body">{post.excerpt || ''}</p>
+            <AdSlot />
 
             {related.length > 0 && (
                 <section className="related">

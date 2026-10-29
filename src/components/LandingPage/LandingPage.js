@@ -3,6 +3,7 @@ import './LandingPage.css';
 import { Link } from 'react-router-dom';
 import { usePosts } from '../../hooks/usePosts';
 import { optimizeImage, readingTime } from '../../api';
+import AdSlot from '../AdSlot';
 
 // Magazine cover, not an empty hero: the featured article IS the hero,
 // text on the left, its image on the right, so the first screen is never
@@ -65,6 +66,8 @@ const LandingPage = () => {
                     <Link className="cta-button" to="/write-blog">Write a blog</Link>
                 </section>
             )}
+
+            <AdSlot />
 
             {latest.length > 0 && (
                 <section className="latest">

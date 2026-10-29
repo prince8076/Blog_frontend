@@ -1,0 +1,5 @@
+# InkWave Blog ads.txt — TODO: replace the placeholder below with your real
+# Google AdSense publisher ID, then redeploy. Until then this file authorizes
+# no seller, which is the safe default (it does not show fake ads).
+# Format when you have it (one line, no placeholder):
+# google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
