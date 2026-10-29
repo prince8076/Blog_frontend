@@ -1,28 +1,21 @@
 import React from 'react';
 import './LandingPage.css';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { usePosts } from '../../hooks/usePosts';
 import { optimizeImage, readingTime } from '../../api';
 
+// Magazine cover, not an empty hero: the featured article IS the hero,
+// text on the left, its image on the right, so the first screen is never
+// a lone headline floating over white space. The old page had a 68vh
+// photo hero, then a second headline, then a featured block — three
+// introductions before any article.
 const LandingPage = () => {
-    const navigate = useNavigate();
     const { posts, isSnapshot, isRefreshing, error, refresh } = usePosts();
     const featured = posts[0];
     const latest = posts.slice(1);
 
     return (
         <div className="landing-page">
-            <section className="hero-section">
-                <div className="hero-content">
-                    <h1 className="hero-title">Stories worth slowing down for</h1>
-                    <p className="hero-subtitle">Tech, travel, and lifestyle writing, without the noise.</p>
-                    <div className="hero-actions">
-                        <button className="cta-button" onClick={() => navigate('/home')}>Start reading</button>
-                        <button className="cta-button write-blog-button" onClick={() => navigate('/write-blog')}>Write a blog</button>
-                    </div>
-                </div>
-            </section>
-
             {isSnapshot && (
                 <p className="saved-note">
                     Showing saved articles while the backend wakes up
@@ -36,61 +29,75 @@ const LandingPage = () => {
                 <p className="saved-note">{error} <button className="text-button" onClick={refresh}>Try again</button></p>
             )}
 
-            {featured && (
-                <section className="featured-article" aria-label="Featured article">
-                    <Link to={`/post/${featured._id}`} className="featured-link">
-                        {featured.image && (
+            {featured ? (
+                <section className="cover" aria-label="Featured article">
+                    <div className="cover-text">
+                        <p className="cover-kicker">Featured</p>
+                        <h1 className="cover-title">
+                            <Link to={`/post/${featured._id}`}>{featured.title}</Link>
+                        </h1>
+                        <p className="cover-meta">{readingTime(featured.excerpt)}</p>
+                        <p className="cover-excerpt">
+                            {(featured.excerpt || '').length > 260 ? featured.excerpt.substring(0, 260) + '…' : (featured.excerpt || '')}
+                        </p>
+                        <div className="cover-actions">
+                            <Link className="cta-button" to={`/post/${featured._id}`}>Read the article</Link>
+                            <Link className="cta-button cta-secondary" to="/home">All articles</Link>
+                        </div>
+                    </div>
+                    {featured.image && (
+                        <Link to={`/post/${featured._id}`} className="cover-image-link" aria-label={featured.title}>
                             <img
                                 src={optimizeImage(featured.image, 1200)}
                                 alt=""
-                                className="featured-image"
+                                className="cover-image"
                                 decoding="async"
                                 width="1200"
-                                height="675"
+                                height="750"
                             />
-                        )}
-                        <div className="featured-text">
-                            <p className="featured-label">Featured</p>
-                            <h2>{featured.title}</h2>
-                            <p className="featured-meta">{readingTime(featured.excerpt)}</p>
-                            <p className="featured-excerpt">
-                                {(featured.excerpt || '').length > 220 ? featured.excerpt.substring(0, 220) + '…' : (featured.excerpt || '')}
-                            </p>
-                            <span className="featured-cta">Read the article</span>
-                        </div>
-                    </Link>
+                        </Link>
+                    )}
+                </section>
+            ) : (
+                <section className="cover-empty">
+                    <h1>No articles yet</h1>
+                    <p>There is nothing to show here right now. Try again in a moment, or write the first one.</p>
+                    <Link className="cta-button" to="/write-blog">Write a blog</Link>
                 </section>
             )}
 
-            <section className="featured-posts">
-                <h2>Latest articles</h2>
-                <div className="posts-grid">
-                    {latest.map((post) => (
-                        <Link to={`/post/${post._id}`} key={post._id} className="post-link">
-                            <article className="post">
-                                {post.image && (
-                                    <img
-                                        src={optimizeImage(post.image, 800)}
-                                        alt=""
-                                        loading="lazy"
-                                        decoding="async"
-                                        width="800"
-                                        height="450"
-                                        className="post-image"
-                                    />
-                                )}
-                                <div className="post-content">
-                                    <h3>{post.title}</h3>
-                                    <p className="post-meta">{readingTime(post.excerpt)}</p>
-                                    <p className="post-excerpt">
-                                        {(post.excerpt || '').length > 120 ? post.excerpt.substring(0, 120) + '…' : (post.excerpt || '')}
-                                    </p>
-                                </div>
-                            </article>
-                        </Link>
-                    ))}
-                </div>
-            </section>
+            {latest.length > 0 && (
+                <section className="latest">
+                    <h2>Latest articles</h2>
+                    <div className="posts-grid">
+                        {latest.map((post) => (
+                            <Link to={`/post/${post._id}`} key={post._id} className="post-link">
+                                <article className="post">
+                                    {post.image && (
+                                        <img
+                                            src={optimizeImage(post.image, 800)}
+                                            alt=""
+                                            loading="lazy"
+                                            decoding="async"
+                                            width="800"
+                                            height="500"
+                                            className="post-image"
+                                        />
+                                    )}
+                                    <div className="post-content">
+                                        <h3>{post.title}</h3>
+                                        <p className="post-meta">{readingTime(post.excerpt)}</p>
+                                        <p className="post-excerpt">
+                                            {(post.excerpt || '').length > 140 ? post.excerpt.substring(0, 140) + '…' : (post.excerpt || '')}
+                                        </p>
+                                        <span className="post-read">Read article →</span>
+                                    </div>
+                                </article>
+                            </Link>
+                        ))}
+                    </div>
+                </section>
+            )}
         </div>
     );
 };

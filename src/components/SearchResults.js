@@ -1,5 +1,5 @@
 import React from 'react';
-import { API_BASE } from '../api';
+import { API_BASE, optimizeImage } from '../api';
 import { useLocation, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import axios from 'axios';
@@ -43,7 +43,7 @@ const SearchComponent = ({ query }) => {
                     filteredResults.map(post => (
                         <div key={post._id} className="post-card">
                             <Link to={`/post/${post._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                                <img src={post.image} alt={post.title} className="post-image" />
+                                <img src={optimizeImage(post.image, 800)} alt="" loading="lazy" decoding="async" className="post-image" />
                                 <div className="post-content">
                                     <h3>{post.title}</h3>
                                     <p className="post-excerpt">{post.excerpt}</p>
@@ -52,7 +52,7 @@ const SearchComponent = ({ query }) => {
                         </div>
                     ))
                 ) : (
-                    <p>No posts to display.</p>
+                    <p>No articles match “{query}”. Try another word, or browse all articles from Home.</p>
                 )}
             </div>
 
@@ -64,8 +64,8 @@ const SearchComponent = ({ query }) => {
                 }
 
                 .posts-list {
-                    display: flex;
-                    flex-wrap: wrap;
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
                     gap: 1rem;
                 }
 
@@ -73,16 +73,17 @@ const SearchComponent = ({ query }) => {
                     background-color: #ffffff;
                     border: 1px solid #e7e2d9;
                     border-radius: 8px;
-                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
                     overflow: hidden;
-                    width: 300px;
-                    text-align: center;
+                    text-align: left;
                 }
 
                 .post-image {
-                    height: 200px;
+                    height: auto;
+                    aspect-ratio: 8 / 5;
                     object-fit: cover;
                     width: 100%;
+                    display: block;
                 }
 
                 .post-content {

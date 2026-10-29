@@ -83,7 +83,8 @@ const PostCard = styled.article`
 `;
 
 const PostImage = styled.img`
-  height: 200px;
+  height: auto;
+  aspect-ratio: 8 / 5;
   object-fit: cover;
   width: 100%;
   display: block;
